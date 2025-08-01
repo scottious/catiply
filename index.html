@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catstronauts - Multiplication Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-content">
+                <h1 class="game-title">🐱 Catstronauts 🚀</h1>
+                <p class="game-subtitle">Master multiplication in space!</p>
+                
+                <div class="welcome-form">
+                    <div class="user-selection">
+                        <label>Choose your space cadet:</label>
+                        <div class="user-options">
+                            <div class="user-option" data-user="Arabelle">
+                                <div class="user-avatar">🐱</div>
+                                <div class="user-info">
+                                    <h3>Arabelle</h3>
+                                    <p>Tables: 6×, 7×, 8×</p>
+                                </div>
+                            </div>
+                            <div class="user-option" data-user="Bear">
+                                <div class="user-avatar">🐻</div>
+                                <div class="user-info">
+                                    <h3>Bear</h3>
+                                    <p>Tables: 6×, 7×, 8×, 11×, 12×</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button id="start-game-btn" class="btn btn-primary" disabled>Blast Off! 🚀</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="main-menu" class="screen">
+            <div class="menu-content">
+                <h1 class="game-title">🐱 Catstronauts 🚀</h1>
+                <p class="welcome-message">Welcome back, <span id="player-display-name"></span>!</p>
+                
+                <div class="stats-section">
+                    <div class="stat-card">
+                        <h3>Personal Best</h3>
+                        <p id="personal-best-score">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Golden Llamas</h3>
+                        <p id="llama-count">0</p>
+                    </div>
+                </div>
+                
+                <div class="current-tables-display">
+                    <h3>Your Current Tables:</h3>
+                    <div class="tables-display" id="current-tables-display">
+                        <!-- Tables will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <button id="play-game-btn" class="btn btn-primary">Start Mission! 🚀</button>
+                <button id="reset-data-btn" class="btn btn-secondary">Reset Progress</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div class="game-stats">
+                    <div class="stat">
+                        <span class="stat-label">Score:</span>
+                        <span id="current-score">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Question:</span>
+                        <span id="question-number">1</span>/20
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Time:</span>
+                        <span id="timer">0:00</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-content">
+                <div class="question-container">
+                    <div class="question-display">
+                        <span id="question-text">8 × 7 = ?</span>
+                    </div>
+                    <div class="answer-input-container">
+                        <input type="number" id="answer-input" placeholder="Type your answer..." autocomplete="off">
+                        <button id="submit-answer" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+                
+                <div class="comet-collection">
+                    <div class="comet" id="comet-1">☄️</div>
+                    <div class="comet" id="comet-2">☄️</div>
+                    <div class="comet" id="comet-3">☄️</div>
+                    <div class="comet" id="comet-4">☄️</div>
+                    <div class="comet" id="comet-5">☄️</div>
+                </div>
+            </div>
+            
+            <!-- Error Modal -->
+            <div id="error-modal" class="modal">
+                <div class="modal-content">
+                    <h3>Oops! 🐱</h3>
+                    <p>The correct answer was: <span id="correct-answer-display"></span></p>
+                    <button id="got-it-btn" class="btn btn-primary">Got it!</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Celebration Screen -->
+        <div id="celebration-screen" class="screen">
+            <div class="celebration-content">
+                <div class="celebration-animation">
+                    <div class="cat-astronaut">🐱</div>
+                    <div class="laser-cats">
+                        <div class="laser-cat">🐱</div>
+                        <div class="laser-cat">🐱</div>
+                        <div class="laser-cat">🐱</div>
+                    </div>
+                    <div class="comet-explosions">
+                        <div class="explosion">💥</div>
+                        <div class="explosion">💥</div>
+                        <div class="explosion">💥</div>
+                    </div>
+                </div>
+                <h2>Amazing! 🎉</h2>
+                <p>You're on fire, space cadet!</p>
+                <button id="continue-game-btn" class="btn btn-primary">Continue Mission!</button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="results-content">
+                <h2>Mission Complete! 🏆</h2>
+                
+                <div class="results-stats">
+                    <div class="result-stat">
+                        <h3>Final Score</h3>
+                        <p id="final-score">0</p>
+                    </div>
+                    <div class="result-stat">
+                        <h3>Time Taken</h3>
+                        <p id="final-time">0:00</p>
+                    </div>
+                    <div class="result-stat">
+                        <h3>Accuracy</h3>
+                        <p id="final-accuracy">0/20</p>
+                    </div>
+                </div>
+                
+                <div class="personal-best-comparison">
+                    <div class="comparison-item">
+                        <span>Previous Best:</span>
+                        <span id="previous-best">0</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span>This Round:</span>
+                        <span id="this-round-score">0</span>
+                    </div>
+                </div>
+                
+                <div id="new-record" class="new-record hidden">
+                    <div class="golden-llama">🦙</div>
+                    <h3>New Personal Best! 🎉</h3>
+                    <p>You've earned a Golden Llama!</p>
+                </div>
+                
+                <div class="results-actions">
+                    <button id="play-again-btn" class="btn btn-primary">Play Again</button>
+                    <button id="main-menu-btn" class="btn btn-secondary">Main Menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="setup.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
