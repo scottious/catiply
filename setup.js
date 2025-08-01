@@ -6,14 +6,14 @@ const GAME_SETUP = {
     users: {
         'Arabelle': {
             name: 'Arabelle',
-            selectedTables: [6, 7, 8],
+            selectedTables: [3, 4, 6, 7, 8],
             personalBest: 0,
             llamaCount: 0,
             isFirstTime: false
         },
         'Bear': {
             name: 'Bear',
-            selectedTables: [6, 7, 8, 11, 12],
+            selectedTables: [7, 8, 11, 12],
             personalBest: 0,
             llamaCount: 0,
             isFirstTime: false
