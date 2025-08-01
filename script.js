@@ -75,7 +75,12 @@ class CatstronautsGame {
         const display = document.getElementById('current-tables-display');
         display.innerHTML = '';
         
-        this.playerData.selectedTables.forEach(table => {
+        // Prioritize localStorage values over setup script
+        const tablesToShow = this.playerData.selectedTables.length > 0 
+            ? this.playerData.selectedTables 
+            : getUserData(this.playerData.name)?.selectedTables || [];
+        
+        tablesToShow.forEach(table => {
             const badge = document.createElement('div');
             badge.className = 'table-badge';
             badge.textContent = `${table}×`;
@@ -124,8 +129,13 @@ class CatstronautsGame {
 
     // Game Logic
     startGame() {
-        if (this.playerData.selectedTables.length === 0) {
-            alert('Please select at least one multiplication table to practice!');
+        // Prioritize localStorage values over setup script
+        const selectedTables = this.playerData.selectedTables.length > 0 
+            ? this.playerData.selectedTables 
+            : getUserData(this.playerData.name)?.selectedTables || [];
+        
+        if (selectedTables.length === 0) {
+            alert('No multiplication tables configured for this user!');
             return;
         }
         
@@ -147,7 +157,11 @@ class CatstronautsGame {
 
     generateQuestions() {
         this.gameState.questions = [];
-        const selectedTables = this.playerData.selectedTables;
+        
+        // Prioritize localStorage values over setup script
+        const selectedTables = this.playerData.selectedTables.length > 0 
+            ? this.playerData.selectedTables 
+            : getUserData(this.playerData.name)?.selectedTables || [];
         
         for (let i = 0; i < this.gameState.totalQuestions; i++) {
             const table = selectedTables[Math.floor(Math.random() * selectedTables.length)];
